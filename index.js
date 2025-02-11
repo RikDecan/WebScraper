@@ -24,7 +24,7 @@
 import puppeteer from "puppeteer";
 import fs from 'fs'; 
 
-const url = "https://www.openingsuren.vlaanderen/zoek/retail-today/9000-gent";
+const url = "https://www.openingsuren.vlaanderen/kledingwinkels";
 
 const main = async () => {
     const browser = await puppeteer.launch({ headless: true }); 
@@ -61,7 +61,7 @@ const main = async () => {
 
     const csvData = csvHeader + csvRows;
 
-    fs.writeFileSync('businesses.csv', csvData);
+    fs.writeFileSync('kledingwinkels.csv', csvData);
 
     console.log('CSV bestand is aangemaakt!');
 
