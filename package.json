@@ -1,0 +1,24 @@
+{
+  "name": "webscraper",
+  "version": "1.0.0",
+  "description": "Een script dat gerund kan worden op 1 of meerdere verschillende websites waarvan de gegevens van zelfstandige retailzaken ophaalt (telefoonnummer, emailadress, ect…)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RikDecan/WebScraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RikDecan/WebScraper/issues"
+  },
+  "homepage": "https://github.com/RikDecan/WebScraper#readme",
+  "dependencies": {
+    "puppeteer": "^24.2.0"
+  }
+}
