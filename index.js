@@ -19,37 +19,34 @@
 // }
 // console.log("script executed");
 // main();
+
+
 import puppeteer from "puppeteer";
+import fs from 'fs'; 
 
 const url = "https://www.openingsuren.vlaanderen/zoek/retail-today/9000-gent";
 
 const main = async () => {
-    const browser = await puppeteer.launch({ headless: true }); // Zet headless op false als je de browser wilt zien
+    const browser = await puppeteer.launch({ headless: true }); 
     const page = await browser.newPage();
     
-    // Ga naar de pagina
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     
-    // Scrape de bedrijfsinformatie
     const allBusinesses = await page.evaluate(() => {
         const businesses = [];
         
-        // Selecteer alle bedrijven
         const companyElements = document.querySelectorAll('.list-row .company-list');
 
-        // Loop door elk bedrijf en verzamel de gewenste info
         companyElements.forEach(company => {
             const name = company.querySelector('h3 a') ? company.querySelector('h3 a').innerText : null;
 
-            // Selecteer het adres
             const addressElement = company.querySelector('.company-list-info.left .company-list-detail');
             const address = addressElement 
-                ? addressElement.innerText.replace(/\n/g, ', ').trim() // Verwijder line breaks in het adres
+                ? addressElement.innerText.replace(/\n/g, ', ').trim() 
                 : null;
 
-           // Zoek naar telefoonnummer (tweede .company-list-detail binnen .company-list-info.left)
-           const phoneElement = company.querySelectorAll('.company-list-info.left .company-list-detail')[1];
-           const phone = phoneElement ? phoneElement.innerText.trim() : null;
+            const phoneElement = company.querySelectorAll('.company-list-info.left .company-list-detail')[1];
+            const phone = phoneElement ? phoneElement.innerText.trim() : null;
 
             businesses.push({ name, address, phone: phone || null });
         });
@@ -57,7 +54,16 @@ const main = async () => {
         return businesses;
     });
 
-    console.log(allBusinesses);
+    const csvHeader = 'Name; Address; Phone\n';
+    const csvRows = allBusinesses.map(business => {
+        return `${business.name}; ${business.address}; ${business.phone ? business.phone : 'null'}`;
+    }).join('\n');
+
+    const csvData = csvHeader + csvRows;
+
+    fs.writeFileSync('businesses.csv', csvData);
+
+    console.log('CSV bestand is aangemaakt!');
 
     await browser.close();
 };
