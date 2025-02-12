@@ -145,5 +145,5 @@ const scrapeCategories = async () => {
 
 console.log("script executed");
 await main();
-await scrapeCategories();
+//await scrapeCategories();
 checkPages();
