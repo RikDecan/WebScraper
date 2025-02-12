@@ -21,6 +21,7 @@
 
 import puppeteer from "puppeteer";
 import fs from 'fs'; 
+import { log } from "console";
 
 const url = "https://www.openingsuren.vlaanderen/theehuizen";
 
@@ -89,6 +90,7 @@ const main = async () => {
         document.querySelector("#company > div.company-info.left > div:nth-child(4)")
 
         return businesses;
+        
     });
 
     const csvHeader = 'Name; Address; Phone\n';
@@ -122,6 +124,26 @@ const checkPages = async () => {
     console.log(`Total number of pages: ${low}`);
 };
 
+const scrapeCategories = async () => {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+
+    await page.goto("https://www.openingsuren.vlaanderen/categorieen", { waitUntil: 'domcontentloaded' });
+
+    const categories = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll('.col2 li a')).map(el => el.textContent.trim());
+    });
+
+    fs.writeFileSync('categories.json', JSON.stringify(categories, null, 2));
+
+    console.log('Categorieën opgeslagen in categories.json');
+
+    await browser.close();
+};
+
+
+
 console.log("script executed");
 await main();
+await scrapeCategories();
 checkPages();
