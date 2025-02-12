@@ -14,14 +14,15 @@
 //         const articles = document.querySelectorAll('')
 //     });
 
-// }
+// } 
+
 // console.log("script executed");
 // main();
 
 import puppeteer from "puppeteer";
 import fs from 'fs'; 
 
-const url = "https://www.openingsuren.vlaanderen/zoek/retail-today/9000-gent";
+const url = "https://www.openingsuren.vlaanderen/theehuizen";
 
 const main = async () => {
     const browser = await puppeteer.launch({ headless: true }); 
@@ -48,6 +49,8 @@ const main = async () => {
             businesses.push({ name, address, phone: phone || null });
         });
 
+        document.querySelector("#company > div.company-info.left > div:nth-child(4)")
+
         return businesses;
     });
 
@@ -70,12 +73,12 @@ const checkPages = async () => {
 
     while (low < high) {
         let mid = Math.floor((low + high + 1) / 2);
-        let response = await fetch(`https://www.openingsuren.vlaanderen/kledingwinkels/p${mid}`);
+        let response = await fetch(`https://www.openingsuren.vlaanderen/theehuizen/p${mid}`);
         
         if (response.redirected) {
-            high = mid - 1; // Page doesn't exist, move left
+            high = mid - 1; 
         } else {
-            low = mid; // Page exists, move right
+            low = mid; 
         }
     }
 
@@ -84,7 +87,4 @@ const checkPages = async () => {
 
 console.log("script executed");
 await main();
-
-
-
 checkPages();
