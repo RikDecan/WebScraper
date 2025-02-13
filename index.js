@@ -6,14 +6,12 @@ const categories = JSON.parse(fs.readFileSync('categories.json', 'utf8'));
 // Configuration
 
 
-//  "Restaurants",
-//  "Schoonheidssalons",
-//  "Supermarkten",
+//  "Supermarkten"
 
 
 const PARALLEL_CATEGORIES = 3;  //  5 
 const PARALLEL_PAGES = 3;   
-const DELAY_BETWEEN_REQUESTS = 2000; // 2000
+const DELAY_BETWEEN_REQUESTS = 800; // 2000
 const waalsePostcodes = [
     1300, 1301, 1310, 1315, 1320, 1321, 1322, 1325, 1330, 1331, 1332, 1333, 1336, 1340, 1341, 1342, 1343, 1344, 
     1345, 1350, 1357, 1360, 1367, 1370, 1380, 1390, 1391, 1400, 1401, 1402, 1404, 1410, 1420, 1421, 1428, 1430, 
@@ -235,10 +233,10 @@ async function main() {
             '--no-sandbox', 
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage', // Voorkomt geheugen problemen
-            '--disable-gpu',           // Reduceert resource gebruik
+            '--disable-gpu', // Reduceert resource gebruik
         ],
         protocolTimeout: 30000,        // Verhoog protocol timeout naar 30 seconden
-        timeout: 60000                 // Algemene timeout van 60 seconden
+        timeout: 60000   // Algemene timeout van 60 seconden
     });
     
     try {
