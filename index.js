@@ -7,7 +7,7 @@ const categories = JSON.parse(fs.readFileSync('categories.json', 'utf8'));
 // Configuration
 const PARALLEL_CATEGORIES = 5;  // Number of categories to process in parallel
 const PARALLEL_PAGES = 3;       // Number of pages per category to process in parallel
-const DELAY_BETWEEN_REQUESTS = 3000; // 2 seconds
+const DELAY_BETWEEN_REQUESTS = 2000; // 2 seconds
 
 async function checkForIPBlock(page) {
     try {
