@@ -1,14 +1,19 @@
 import puppeteer from "puppeteer";
 import fs from 'fs';
 
-// Read categories from JSON file
 const categories = JSON.parse(fs.readFileSync('categories.json', 'utf8'));
 
 // Configuration
-const PARALLEL_CATEGORIES = 5;  // Number of categories to process in parallel
-const PARALLEL_PAGES = 3;       // Number of pages per category to process in parallel
-const DELAY_BETWEEN_REQUESTS = 2000; // 2 seconds
 
+
+//  "Restaurants",
+//  "Schoonheidssalons",
+//  "Supermarkten",
+
+
+const PARALLEL_CATEGORIES = 3;  //  5 
+const PARALLEL_PAGES = 3;   
+const DELAY_BETWEEN_REQUESTS = 2000; // 2000
 const waalsePostcodes = [
     1300, 1301, 1310, 1315, 1320, 1321, 1322, 1325, 1330, 1331, 1332, 1333, 1336, 1340, 1341, 1342, 1343, 1344, 
     1345, 1350, 1357, 1360, 1367, 1370, 1380, 1390, 1391, 1400, 1401, 1402, 1404, 1410, 1420, 1421, 1428, 1430, 
